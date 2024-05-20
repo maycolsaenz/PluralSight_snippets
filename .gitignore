@@ -1,0 +1,31 @@
+# Directories
+Debug/
+Release/
+ipch/
+html/
+rtf/
+.vs/
+
+# File types
+*.aps
+*.bak
+*.ncb
+*.opt
+*.plg
+*.PLG
+*.scc
+*.sou
+*.vcproj.*
+# *.zip
+*.suo
+*.suo.old
+*.sdf
+*.opensdf
+*.vcxproj.user
+
+# Specific Files
+dependencies.txt
+nmake.LOG*
+RunMake.LOG*
+runmake.LOG*
+UpgradeLog.htm

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Beautiful C++14 STL Algorithms">
+      <UniqueIdentifier>{57a95eb3-7d73-49fe-83ae-2c1dfefb19ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\std::maps">
+      <UniqueIdentifier>{95e8e2ec-23e8-48a4-adb6-fd35bc8d78a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyCodeSnippets">
+      <UniqueIdentifier>{6224953e-0648-4d6c-a063-ce07aaabf19f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{ead9621a-1de7-4880-aa97-85407357f4e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Design Patterns">
+      <UniqueIdentifier>{2083a4ae-42bc-406d-87c4-db5d6ac12e9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="std_map_airportDB.cpp">
+      <Filter>Source Files\std::maps</Filter>
+    </ClCompile>
+    <ClCompile Include="std_map_italianDictionary.cpp">
+      <Filter>Source Files\std::maps</Filter>
+    </ClCompile>
+    <ClCompile Include="std_count.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="std_find.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="std_sorting.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="maskMatch.cpp">
+      <Filter>Source Files\MyCodeSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="vectorFront.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="singleton.cpp">
+      <Filter>Source Files\Design Patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="Comparing.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maskMatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Employee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
