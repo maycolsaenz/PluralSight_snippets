@@ -6,10 +6,11 @@
 //#define count
 //#define find
 //#define sorting
- #define comparing
+//#define comparing
 //#define test_maskMatch
 //#define test_vectorFront
 //#define singleton_1
+#define Generating
 
 int main() {
 
@@ -47,6 +48,10 @@ int main() {
 
 #ifdef singleton_1
     singleton1();
+#endif
+
+#ifdef Generating
+    generatingManipulating();
 #endif
 
 

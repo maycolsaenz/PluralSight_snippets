@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Comparing.cpp" />
+    <ClCompile Include="Generating.cpp" />
     <ClCompile Include="maskMatch.cpp" />
     <ClCompile Include="singleton.cpp" />
     <ClCompile Include="std_sorting.cpp" />

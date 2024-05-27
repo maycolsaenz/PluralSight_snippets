@@ -7,6 +7,7 @@ int std_count();
 int std_find();
 int std_sorting();
 int std_comparing();
+int generatingManipulating();
 
 // My code snippets
 int run_maskMatch();

@@ -60,6 +60,9 @@
     <ClCompile Include="Comparing.cpp">
       <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="Generating.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="functions.h">
