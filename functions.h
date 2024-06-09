@@ -12,6 +12,7 @@ int generatingManipulating();
 // My code snippets
 int run_maskMatch();
 int vectorFront();
+int inputCrossover();
 
 // Design Patterns PluralSight
 int singleton1();

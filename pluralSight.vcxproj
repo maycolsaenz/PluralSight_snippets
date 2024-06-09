@@ -142,7 +142,9 @@
   <ItemGroup>
     <ClCompile Include="Comparing.cpp" />
     <ClCompile Include="Generating.cpp" />
+    <ClCompile Include="inputWithCrossoverTest.cpp" />
     <ClCompile Include="maskMatch.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="singleton.cpp" />
     <ClCompile Include="std_sorting.cpp" />
     <ClCompile Include="std_count.cpp" />
@@ -156,6 +158,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="maskMatch.h" />
+    <ClInclude Include="Resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

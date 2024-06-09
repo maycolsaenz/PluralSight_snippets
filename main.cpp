@@ -1,5 +1,6 @@
 #include "functions.h"
 #include "maskMatch.h"
+#include "inputCrossover.h"
 
 //#define map_airportDB
 //#define map_italianDictionary
@@ -11,6 +12,7 @@
 //#define test_vectorFront
 //#define singleton_1
 #define Generating
+//#define inputWithCrossoverBits
 
 int main() {
 
@@ -52,6 +54,10 @@ int main() {
 
 #ifdef Generating
     generatingManipulating();
+#endif
+
+#ifdef inputWithCrossoverBits
+    inputCrossover();
 #endif
 
 

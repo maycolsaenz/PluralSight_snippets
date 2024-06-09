@@ -63,6 +63,12 @@
     <ClCompile Include="Generating.cpp">
       <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="inputWithCrossoverTest.cpp">
+      <Filter>Source Files\MyCodeSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source Files\Beautiful C++14 STL Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="functions.h">
@@ -72,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Employee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

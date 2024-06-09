@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "Resource.h"
 #include <algorithm>
 #include <numeric>
 #include <vector>
@@ -55,6 +56,58 @@ int generatingManipulating() {
      */
     copy_backward(begin(source), end(source) - 1, end(source));
 
+    /// Removing Elements
+
+    // This removes all the values 3 from the vector.
+    auto newend = remove(begin(source), end(source), 3);
+    int s = source.size();
+
+    //Then cleans up the collection.
+    int logicalsize = newend - begin(source);
+    source.erase(newend, end(source));
+
+    source = v3;
+    //This one does the same in one line.
+    source.erase(remove(begin(source), end(source), 3), end(source));
+
+    //Vector of objects
+    vector<Resource> vr(2);
+    vr[0].setValue(8);
+    vr[1].setValue(9);
+
+    auto newend2 = remove_if(begin(vr), end(vr),
+        [](const Resource& r) {
+            return r.getvalue() == 8;
+        });
+    vr.erase(newend2, end(vr));
+
+    /* About creating and filling collections
+     * It is necessary to specify the size of the collection.
+     */
+
+    //This one fills the whole vector with numbers 1.
+    vector<int> v6(10);
+    fill(begin(v6), end(v6), 1);
+    //This one fills the first 6 places with numbers 2.
+    fill_n(begin(v6), 6, 2);
+    //iouta fills the whole vector with incrementing numbers by 1.
+    iota(begin(v6), end(v6), 1);
+
+    //This one fills the vector with decrementing numbers by 1.
+    int index = 10;
+    generate(begin(v6), end(v6), [&index]() {return --index; });
+    source = v6;
+    index = 1;
+    //Fills first 7 position with the result of the lambda function.
+    generate_n(begin(v6), 7, [&index]() {return (index *= 2); });
+
+    //Replacing values
+
+    //This one replaces all 2s with the number 7.
+    replace(begin(v6), end(v6), 2, 7);
+
+    //This one will replace any number less than 16 with the number 7.
+    replace_if(begin(v6), end(v6), [](int elem) {return elem < 16; }, 7);
 
     return 0;
 }

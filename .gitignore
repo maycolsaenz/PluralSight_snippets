@@ -22,6 +22,8 @@ rtf/
 *.sdf
 *.opensdf
 *.vcxproj.user
+*.vcxproj
+*.vcxproj.filters
 
 # Specific Files
 dependencies.txt
