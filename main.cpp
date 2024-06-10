@@ -11,8 +11,9 @@
 //#define test_maskMatch
 //#define test_vectorFront
 //#define singleton_1
-#define Generating
+//#define Generating
 //#define inputWithCrossoverBits
+#define iterator
 
 int main() {
 
@@ -60,5 +61,7 @@ int main() {
     inputCrossover();
 #endif
 
-
+#ifdef iterator
+    iterators();
+#endif
 }
