@@ -109,5 +109,56 @@ int generatingManipulating() {
     //This one will replace any number less than 16 with the number 7.
     replace_if(begin(v6), end(v6), [](int elem) {return elem < 16; }, 7);
 
+    //Transform
+
+    //This one takes each element and transforms it into its double(x2).
+    transform(begin(source), end(source), begin(source),
+        [](int elem) {
+            return elem * 2;
+        }
+    );
+
+    /* Pairwise version
+     * Parameters:
+     * Starting point, ending point, second starting point,
+     * destination begin(v6). This will receive the difference.
+     */
+    transform(begin(source), end(source)-1, begin(source)+1, begin(v6),
+        [](int elem1, int elem2) {
+            return elem1- elem2;
+        }
+    );
+
+    //Another example
+    iota(begin(v6), end(v6), 1);
+    iota(begin(source), end(source), 2);
+    vector<int>v7(10);
+    transform(begin(source), end(source), begin(v6), begin(v7),
+        [](int elem1, int elem2) {
+            return elem1 + elem2;
+        }
+    );
+
+    /* Eliminating Duplicates
+     * Duplicates must be consecutive for these functions to have an effect.
+     * That is why sort() is tipically used before calling these functions.
+     * unique_copy when you do not want to modify the original collection.
+     */
+    unique(begin(v2), end(v2));
+    v2[3] = -2; // Now there are consecutive duplicates in the collection.
+    auto v8 = v2;
+    v2.erase(unique(begin(v2), end(v2)), end(v2));
+    unique_copy(begin(v8), end(v8), begin(v7));
+
+    //Reversing and Swapping
+    string sentence = "Hello, world!";
+    reverse(begin(sentence), end(sentence));
+
+    //Remember that end(v7) points passed the last element.
+    iter_swap(begin(v7), end(v7) - 1);
+
+    string orig = "                       ";
+    reverse_copy(begin(sentence), end(sentence), begin(orig));
+
     return 0;
 }
