@@ -1,84 +1,90 @@
 #include "maskMatch.h"
+#include <Windows.h>
 
-//Class implementation
-BOOL maskMatch::matchesMask(std::string mask, UINT64 input) { //I changed the mask type
-    BOOL result = TRUE;
+BOOL maskMatcher::matchesMask(std::string mask, UINT64 input) {
+    //first argument in the TOPO suit without errors is LPCTSTR mask
+    //userMask = static_cast<std::string>(mask); // In the TOPO suite.
     userMask = mask;
-    //userMask = static_cast<std::string>(mask); //I don't get this error in ATOPO suite.
 
-
-    //Functions working
     cleanBlanks();
-    if (setOperator()) {
+    if (containsOperator()) {
         eraseOperator();
     }
-    if (anyAsterisk()) {
-        setToken();
-        setCoefficient();
+    if (containsAsterisk()) {
+        collectToken();
+        collectCoefficient();
         expandTokens();
+        replaceTokens();
     }
-    result &= compare(input);
-
-    return result;
-}
-void maskMatch::cleanBlanks() {
-    userMask.erase(std::remove_if(userMask.begin(), userMask.end(), ::isspace),
-        userMask.end());
-}
-BOOL maskMatch::setOperator() {
-    BOOL result = TRUE;
-    const std::string firstTwoChars = userMask.substr(0, 2);
-    if (firstTwoChars == "==") { operation = 0; }
-    else if (firstTwoChars == "<=") { operation = 1; }
-    else if (firstTwoChars == ">=") { operation = 2; }
-    else {
-        operation = 0;
-        result = FALSE; }
-    return result;
-}
-void maskMatch::eraseOperator() {
-    userMask.erase(0, 2);
+    convertMaskToNumber(input);
+    return conditionalComparison();
 }
 
-BOOL maskMatch::anyAsterisk() {
-    BOOL short_hand =static_cast<BOOL>(
-        std::any_of(
-            begin(userMask),
-            end(userMask),
-            [](char c){return c == '*';}
-        )
+void maskMatcher::cleanBlanks() {
+    userMask.erase(
+        std::remove_if(
+            userMask.begin(),
+            userMask.end(),
+            ::isspace
+        ),
+        userMask.end()
     );
+}
+
+BOOL maskMatcher::containsOperator() {
+    BOOL result = TRUE;
+    const int firstChar = 0;
+    const int lastChar = 2;
+    const enum condition { equal, lessThan, greaterThan };
+    const std::string firstTwoChars = userMask.substr(firstChar, lastChar);
+    if (firstTwoChars == "==") { operation = equal; }
+    else if (firstTwoChars == "<=") { operation = lessThan; }
+    else if (firstTwoChars == ">=") { operation = greaterThan; }
+    else {
+        operation = equal;
+        result = FALSE;
+    }
+    return result;
+}
+
+void maskMatcher::eraseOperator() {
+    const int firstChar = 0;
+    const int lastChar = 2;
+    userMask.erase(firstChar, lastChar);
+}
+
+BOOL maskMatcher::containsAsterisk() {
+    BOOL short_hand = static_cast<BOOL>(
+        std::any_of(begin(userMask), end(userMask), [](char c) {return c == '*'; }));
     return short_hand;
 }
-void maskMatch::setToken() {
+
+void maskMatcher::collectToken() {
     const int size = static_cast<int>(userMask.size());
     for (int i = 0; i < size; i++) {
         if (userMask[i] == '*')
             token += userMask[i + 1];
     }
 }
-void maskMatch::setCoefficient() {
+
+void maskMatcher::collectCoefficient() {
     int startPosition{};
     std::string result{};
-    while(true)
+    while (true)
     {
         char startChar = '(';
         char endChar = '*';
-
-        int start = userMask.find(startChar, startPosition);
-        if (start == std::string::npos)
-            break;
-        int end = userMask.find(endChar, start + 1);
-        if (end == std::string::npos)
+        auto start = userMask.find(startChar, startPosition);
+        auto end = userMask.find(endChar, start + 1);
+        if (start == std::string::npos || end == std::string::npos)
             break;
         result = userMask.substr(start + 1, end - start - 1);
         coefficient.push_back(std::stoi(result));
-        startPosition = end + 1; 
+        startPosition = static_cast<int>(end + 1);
     }
 }
 
-void maskMatch::expandTokens() {
-    std::vector<std::string> extendedTokens{};
+void maskMatcher::expandTokens() {
     std::string extendedToken{};
     const int clenght = static_cast<int>(coefficient.size());
     for (int i = 0; i < clenght; ++i) {
@@ -86,78 +92,110 @@ void maskMatch::expandTokens() {
         extendedTokens.push_back(extendedToken);
         extendedToken.clear();
     }
+}
 
+void  maskMatcher::replaceTokens() {
     int currentIndex{};
-    int openPos{};
-    int closePos{};
+    int openPosition{};
+    int closePosition{};
+    int tokenIndex = 0;
     while (true) {
-        openPos = userMask.find('(', currentIndex);
-        if (openPos == std::string::npos)
+        openPosition = static_cast<int>(userMask.find('(', currentIndex));
+        closePosition = static_cast<int>(userMask.find(')', openPosition));
+        if (openPosition == std::string::npos || closePosition == std::string::npos)
             break;
-        closePos = userMask.find(')', openPos);
-        if (closePos == std::string::npos)
-            break;
-        int newTextIndex = currentIndex % extendedTokens.size();
-        userMask.replace(openPos,
-            closePos - openPos + 1,
+        int newTextIndex = tokenIndex % extendedTokens.size();
+        userMask.replace(openPosition,
+            closePosition - openPosition + 1,
             extendedTokens[newTextIndex]);
-        currentIndex = openPos + extendedTokens[newTextIndex].size();
+        currentIndex = openPosition
+            + static_cast<int>(extendedTokens[newTextIndex].size());
+        tokenIndex++;
     }
 }
-BOOL maskMatch::compare(UINT64 input) {
-    BOOL result = TRUE;
-    std::bitset<32> mask_fixed;
-    std::bitset<32> addr_fixed;
+
+void maskMatcher::convertMaskToNumber(UINT64 input) {
     std::bitset<32> originalAddress(input);
     const int MaskSize = static_cast<int>(userMask.size());
     for (int bit = MaskSize; bit > 0; bit--) {
         if (userMask[bit - 1] == 'X' || userMask[bit - 1] == 'x') continue;
+        // Reverse mask and casts tokens ('0' an '1') to numeric values.
         mask_fixed[MaskSize - bit] = userMask[bit - 1] - '0';
         addr_fixed[MaskSize - bit] = originalAddress[MaskSize - bit];
     }
-    UINT32 maskToCompare = mask_fixed.to_ulong();
-    UINT32 addressToCompare = addr_fixed.to_ulong();
-    result &= conditionalComparison(maskToCompare, addressToCompare);
-    return result;
 }
 
-BOOL maskMatch::conditionalComparison(UINT32 msk, UINT32 addr) {
-    switch (operation) 
+BOOL maskMatcher::conditionalComparison() {
+    const enum { equal, lessThan, greaterThan };
+    UINT32 maskToCompare = mask_fixed.to_ulong();
+    UINT32 addressToCompare = addr_fixed.to_ulong();
+    switch (operation)
     {
-    case 0:
-        if (addr == msk) { return TRUE; }
+    case equal:
+        if (addressToCompare == maskToCompare) { return TRUE; }
         else { return FALSE; }
-    case 1:
-        if (addr <= msk) { return TRUE; }
+    case lessThan:
+        if (addressToCompare <= maskToCompare) { return TRUE; }
         else { return FALSE; }
-    case 2:
-        if (addr >= msk) { return TRUE; }
+    case greaterThan:
+        if (addressToCompare >= maskToCompare) { return TRUE; }
         else { return FALSE; }
     default:
         return FALSE;
     }
 }
-
-//Aux
-std::string maskMatch::getUserMask() {
-    return userMask;
+//UINT64 maskMatcher::AllBitsMaskResult(LPCTSTR mask, UINT64 input) {
+UINT64 maskMatcher::AllBitsMaskResult(std::string mask, UINT64 input) {
+    UINT64 result{};
+    if (matchesMask(mask, input))
+        result = 0xFFFFFFFF;
+    return result;
 }
-
-
 //End class implementation
+
+//**************Test function***************
+
+void testFun(const std::vector<std::string> &testMasks,
+    const std::vector<std::string> &expectedMasks){
+    int counter{};
+    for (int i = 0; i < testMasks.size(); i++) {
+        maskMatcher Test1;
+        if (Test1.getUserMask(testMasks[i]) != expectedMasks[i]) {
+            cout << "Mask[" << i << "] does not match expected." << endl;
+        }
+        else {
+            counter++;
+        }
+    }
+    cout << "Result:" << counter << "/" << testMasks.size() << " correct." << endl;
+    std::string result;
+    result = (counter == testMasks.size()) ? "PASS\n" : "FAIL\n";
+    cout << result;
+}
 
 using namespace std;
 
 int run_maskMatch() {
-    std::string mask1 = "== (2*X)(4*1)";
+    const std::vector<std::string>testMasks{
+        "XXX1",
+        "101X",
+        "(4*1) 11XX",
+        "(3*x)1100(2*1)",
+        "(5*X)(6*1)(7*0)",
+        "11110000(4*X)",
+        "1100(6*1)001"
+    };
+    const std::vector<std::string>expectedMasks{
+        "XXX1",
+        "101X",
+        "111111XX",
+        "xxx110011",
+        "XXXXX1111110000000",
+        "11110000XXXX",
+        "1100111111001"
+    };
 
-    maskMatch Test1;
-    UINT64 input = 0x2f;
-    BOOL TestResult{};
-    TestResult = Test1.matchesMask(mask1, input);
-    std::cout << "ResultTest = " << TestResult << std::endl;
-    std::cout << "Final mask = " << Test1.getUserMask() << std::endl;
-
+    testFun(testMasks, expectedMasks);
 
     return 0;
 }
