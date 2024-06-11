@@ -8,12 +8,12 @@
 //#define find
 //#define sorting
 //#define comparing
-#define test_maskMatcher
+//#define test_maskMatcher
 //#define test_vectorFront
 //#define singleton_1
 //#define Generating
 //#define inputWithCrossoverBits
-//#define iterator
+#define iterator
 
 int main() {
 

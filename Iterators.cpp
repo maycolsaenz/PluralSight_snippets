@@ -2,7 +2,7 @@
 #include "functions.h"
 
 using namespace std;
-
+using std::string;
 int iterators() {
 
     // Preallocating the vector size
@@ -51,7 +51,68 @@ int iterators() {
     vector<int> v6;
     unique_copy(begin(v3), end(v3), back_inserter(v6));
 
-    //Almost any algorithm min 5:25
+    // With strings
+    string sentence = "Hellow, world!";
+    string reverse;
+    reverse_copy(begin(sentence), end(sentence), back_inserter(reverse));
+
+    /* inserter works for algorithms that don't rely on a distance:
+     * fill_n but not fill
+     * generate_n but not generate
+     * transform
+     * copy, copy_if
+     * unique_copy
+     * reverse_copy
+     */
+
+    // Reverse iterators
+    v2.clear();
+    copy(rbegin(v1), rend(v1), back_inserter(v2));
+
+    v1[5] = 2;
+    auto two = find(begin(v1), end(v1), 2);
+    auto distance = two - begin(v1);
+    // By looking at the next value we can figure out which 2 was found.
+    two++;
+    
+    // An iterator and a reverse iterator are not of the same type.
+    auto rtwo = find(rbegin(v1), rend(v1), 2);
+    distance = rtwo - rbegin(v1);
+    rtwo++;
+   
+    // distance = rtwo - two; // This is an error.
+
+    // Iterator Arithmetic
+
+    // Is "3" in the first or second half?
+    auto three = find(begin(v1), end(v1), 3);
+    bool firsthalf = (three - begin(v1) < end(v1) - three);
+    // What about "9";
+    auto nine = find(begin(v1), end(v1), 9);
+    firsthalf = (nine - begin(v1) < end(v1) - nine);
+    
+    // Iterators to const Elements
+    array<const int, 5>ca = { 3, 1, 6, 0, 2 };
+    auto it = begin(ca);
+    it++;
+    // *it = 7;
+    int i = *it;
+
+    //vector<const int> vc; // vector does not support const elements.
+
+    it = find(begin(ca), end(ca), 1);
+    it++;
+    // *it = 7;
+    // it = cbegin(ca);
+
+    auto it2 = begin(v2);
+    it2++;
+    *it2 = 7;
+
+    auto cit = cbegin(v2);
+    cit++;
+    // *cit = 7;
+
 
     return 0;
 }

@@ -5,6 +5,7 @@
 #include <iterator>
 #include <deque>
 #include <array>
+#include <string>
 // C++ PluralSight
 int std_map_airportDB();
 int std_map_italianDictionary();

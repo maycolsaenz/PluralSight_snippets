@@ -8,7 +8,7 @@
 using namespace std;
 
 int std_count() {
-    vector<int> v{ 2,7,1,6,2,-2,4,0 };
+    vector<int> v{ 2, 7, 1, 6, 2, -2, 4, 0 };
 
     //count how many entries have target value (2)
     int twos = 0;
