@@ -13,7 +13,8 @@
 //#define singleton_1
 //#define Generating
 //#define inputWithCrossoverBits
-#define iterator
+//#define iterator
+#define unexpected
 
 int main() {
 
@@ -64,4 +65,9 @@ int main() {
 #ifdef iterator
     iterators();
 #endif
+
+#ifdef unexpected
+    unexpectedOperations();
+#endif
+
 }

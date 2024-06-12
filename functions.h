@@ -15,6 +15,7 @@ int std_sorting();
 int std_comparing();
 int generatingManipulating();
 int iterators();
+int unexpectedOperations();
 
 // My code snippets
 int run_maskMatch();
