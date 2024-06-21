@@ -14,7 +14,8 @@
 //#define Generating
 //#define inputWithCrossoverBits
 //#define iterator
-#define unexpected
+//#define unexpected
+#define measureTime
 
 int main() {
 
@@ -68,6 +69,10 @@ int main() {
 
 #ifdef unexpected
     unexpectedOperations();
+#endif
+
+#ifdef measureTime
+    timing();
 #endif
 
 }

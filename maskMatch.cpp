@@ -183,7 +183,8 @@ int run_maskMatch() {
         "(3*x)1100(2*1)",
         "(5*X)(6*1)(7*0)",
         "11110000(4*X)",
-        "1100(6*1)001"
+        "1100(6*1)001",
+        "(20*X)1XX0"
     };
     const std::vector<std::string>expectedMasks{
         "XXX1",
@@ -192,7 +193,8 @@ int run_maskMatch() {
         "xxx110011",
         "XXXXX1111110000000",
         "11110000XXXX",
-        "1100111111001"
+        "1100111111001",
+        "XXXXXXXXXXXXXXXXXXXX1XX0"
     };
 
     testFun(testMasks, expectedMasks);

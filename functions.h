@@ -16,6 +16,7 @@ int std_comparing();
 int generatingManipulating();
 int iterators();
 int unexpectedOperations();
+int timing();
 
 // My code snippets
 int run_maskMatch();
