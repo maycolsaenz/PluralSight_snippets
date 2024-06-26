@@ -15,7 +15,8 @@
 //#define inputWithCrossoverBits
 //#define iterator
 //#define unexpected
-#define measureTime
+//#define measureTime
+#define RAII_demo
 
 int main() {
 
@@ -73,6 +74,10 @@ int main() {
 
 #ifdef measureTime
     timing();
+#endif
+
+#ifdef RAII_demo
+    RAII();
 #endif
 
 }
