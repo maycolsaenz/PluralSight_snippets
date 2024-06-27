@@ -16,7 +16,8 @@
 //#define iterator
 //#define unexpected
 //#define measureTime
-#define RAII_demo
+//#define RAII_demo
+#define modernForLoopDemo
 
 int main() {
 
@@ -78,6 +79,10 @@ int main() {
 
 #ifdef RAII_demo
     RAII();
+#endif
+
+#ifdef modernForLoopDemo
+    modernForLoop();
 #endif
 
 }

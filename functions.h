@@ -18,6 +18,7 @@ int iterators();
 int unexpectedOperations();
 int timing();
 int RAII();
+int modernForLoop();
 
 // My code snippets
 int run_maskMatch();
