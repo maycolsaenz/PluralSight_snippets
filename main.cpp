@@ -17,7 +17,8 @@
 //#define unexpected
 //#define measureTime
 //#define RAII_demo
-#define modernForLoopDemo
+//#define modernForLoopDemo
+#define inline_Assembly
 
 int main() {
 
@@ -83,6 +84,10 @@ int main() {
 
 #ifdef modernForLoopDemo
     modernForLoop();
+#endif
+
+#ifdef inline_Assembly
+    inlineAssembly();
 #endif
 
 }

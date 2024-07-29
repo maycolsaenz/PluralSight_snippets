@@ -27,3 +27,6 @@ int inputCrossover();
 
 // Design Patterns PluralSight
 int singleton1();
+
+// Inline Assembly
+int inlineAssembly();
